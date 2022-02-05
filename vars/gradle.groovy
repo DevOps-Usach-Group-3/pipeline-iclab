@@ -5,7 +5,7 @@
 */
 def call(){
     stage("Paso 1: Build && Test"){
-        echo 'Pulling...' + env.BRANCH_NAME
+        sh "echo 'Pulling...' + env.BRANCH_NAME"
         sh "gradle clean build"
     }
     stage("Paso 2: Sonar - Análisis Estático"){
