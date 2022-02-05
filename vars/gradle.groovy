@@ -4,6 +4,14 @@
 	ejecucion.call()
 */
 def call(){
+
+
+    if(${env.GIT_BRANCH} == "origin/feature-ellery"){
+        sh 'echo "Se esta compilando el feature de Ellery"'
+    }else{
+        sh 'echo "otro branch"'
+    }
+
     stage("Paso 1: Build && Test"){
         echo "${env.GIT_BRANCH}"
         sh 'echo $GIT_BRANCH'
@@ -11,7 +19,7 @@ def call(){
     }
 
     return this;
-    
+
     stage("Paso 2: Sonar - Análisis Estático"){
         sh "echo 'Análisis Estático!'"
         withSonarQubeEnv('sonarqube') {
