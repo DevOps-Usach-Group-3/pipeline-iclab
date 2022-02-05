@@ -9,6 +9,9 @@ def call(){
         sh 'echo $GIT_BRANCH'
         sh "gradle clean build"
     }
+
+    return this;
+    
     stage("Paso 2: Sonar - Análisis Estático"){
         sh "echo 'Análisis Estático!'"
         withSonarQubeEnv('sonarqube') {
