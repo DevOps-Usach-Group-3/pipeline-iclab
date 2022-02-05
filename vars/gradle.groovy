@@ -6,11 +6,12 @@
 def call(){
 
     String ambiente = ${env.GIT_BRANCH}
-
-    if(ambiente == "origin/feature-ellery"){
-        sh 'echo "Se esta compilando el feature de Ellery"'
-    }else{
-        sh 'echo "otro branch"'
+    stage("Paso 0: Definiendo el ambiente"){
+        if(ambiente == "origin/feature-ellery"){
+            sh 'echo "Se esta compilando el feature de Ellery"'
+        }else{
+            sh 'echo "otro branch"'
+        }
     }
 
     stage("Paso 1: Build && Test"){
