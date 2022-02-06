@@ -18,7 +18,7 @@ def call(){
         sh "gradle clean build"
     }
 
-    return this;
+   
 
     stage("Paso 2: Sonar - Análisis Estático"){
         sh "echo 'Análisis Estático!'"
@@ -26,6 +26,9 @@ def call(){
             sh './gradlew sonarqube -Dsonar.projectKey=pipeline-iclab-prueba -Dsonar.java.binaries=build'
         }
     }
+
+     return this;
+     
     stage("Paso 3: Curl Springboot con Gradle durmiendo 20 segundos"){
         sh "gradle bootRun&"
         sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
