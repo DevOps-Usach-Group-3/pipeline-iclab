@@ -5,6 +5,7 @@
 */
 def call(){
 
+    env.VERSION_RELEASE = ${project.version}
 
     echo 'El pipeline se ejecutará segun la rama ' + env.GIT_BRANCH
     String rama = env.GIT_BRANCH
@@ -167,7 +168,7 @@ def stageGitCreateRelease() {
     stage("${env.DESCRIPTION_STAGE}"){
         if(env.GIT_BRANCH == "origin/develop"){
             sh 'echo "Crear release"'
-            sh "git checkout -b release-v${env.BUILD_NUMBER}"
+            sh "git checkout -b release-v${env.VERSION_RELEASE}"
         }
     }
 }
@@ -177,7 +178,7 @@ def stageMergeMaster() {
     stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "gitMergeMaster - ${DESCRIPTION_STAGE}"
         sh "echo ${env.STAGE}"
-        sh "git checkout main && git merge release-v${env.BUILD_NUMBER}"
+        sh "git checkout main && git merge release-v${env.VERSION_RELEASE}"
     }
 }
 
@@ -197,7 +198,7 @@ def stageGitTag(){
     stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "gitTagRelease - ${DESCRIPTION_STAGE}"
         sh "echo ${env.STAGE}"
-        sh "git tag -a v${env.BUILD_NUMBER}"
+        sh "git tag -a v${env.VERSION_RELEASE}"
     }
 }
 
