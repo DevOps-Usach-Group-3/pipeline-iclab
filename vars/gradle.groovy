@@ -153,12 +153,6 @@ def stageCurlJar(){
         sh "echo  ${env.STAGE}"
         sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
     }
-    stage("Paso 8: Generando la rama Release"){
-        if(env.GIT_BRANCH == "origin/develop"){
-            sh 'echo "Crear release"'
-            sh "git checkout -b release-v${env.VERSION}"
-        }
-    }
 }
 
 
@@ -167,6 +161,16 @@ def stageCurlJar(){
     } */
 
 //  Stage 9
+
+def stageGitCreateRelease() {
+    env.DESCRIPTION_STAGE = "Paso 8: Generando la rama Release"
+    stage("${env.DESCRIPTION_STAGE}"){
+        if(env.GIT_BRANCH == "origin/develop"){
+            sh 'echo "Crear release"'
+            sh "git checkout -b release-v${env.VERSION}"
+        }
+    }
+}
 
 def stageMergeMaster() {
     env.DESCRIPTION_STAGE = "Paso 9: Realizar merge directo hacia la rama master."
@@ -202,6 +206,7 @@ def stagesCI(){
     stageSonar()
     stageRunSpringCurl()
     stageUploadNexus()
+    stageGitCreateRelease()
 }
 
 def stagesCD(){
