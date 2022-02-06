@@ -167,7 +167,7 @@ def stageGitCreateRelease() {
     stage("${env.DESCRIPTION_STAGE}"){
         if(env.GIT_BRANCH == "origin/develop"){
             sh 'echo "Crear release"'
-            sh "git checkout -b release-v${env.VERSION}"
+            sh "git checkout -b release-v${env.BUILD_NUMBER}"
         }
     }
 }
@@ -177,7 +177,7 @@ def stageMergeMaster() {
     stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "gitMergeMaster - ${DESCRIPTION_STAGE}"
         sh "echo ${env.STAGE}"
-        sh "git checkout main && git merge release-v${env.VERSION}"
+        sh "git checkout main && git merge release-v${env.BUILD_NUMBER}"
     }
 }
 
@@ -197,7 +197,7 @@ def stageGitTag(){
     stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "gitTagRelease - ${DESCRIPTION_STAGE}"
         sh "echo ${env.STAGE}"
-        sh "git tag -a v${env.VERSION}"
+        sh "git tag -a v${env.BUILD_NUMBER}"
     }
 }
 
