@@ -208,7 +208,6 @@ def stagesCI(){
 def stagesCD(){
     stageDownloadNexus()
     stageRunJar()
-    stageRest()
     stageUploadNexus()
     stageMergeMaster()
     stageMergeDevelop()
