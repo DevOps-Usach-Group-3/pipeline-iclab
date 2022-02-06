@@ -15,17 +15,20 @@ pipeline {
         NEXUS_USER         = credentials('nexus-user-name')
         NEXUS_PASSWORD     = credentials('nexus-user-pass')
     }
+    /*
     parameters {
         choice(
             name:'compileTool',
             choices: ['Maven', 'Gradle'],
             description: 'Seleccione herramienta de compilacion'
         )
-    }
+    }*/
     stages {
         stage("Pipeline"){
             steps {
                 script{
+                    gradle.call()
+                    /*
                   switch(params.compileTool)
                     {
                         case 'Maven':
@@ -34,7 +37,7 @@ pipeline {
                         case 'Gradle':
                             gradle.call()
                         break;
-                    }
+                    } */
                 }
             }
             post{
