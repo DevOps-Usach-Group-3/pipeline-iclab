@@ -201,7 +201,6 @@ def stagesCI(){
     stageCleanBuildTest()
     stageSonar()
     stageRunSpringCurl()
-    stageRest()
     stageUploadNexus()
 }
 
