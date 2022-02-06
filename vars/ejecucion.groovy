@@ -43,8 +43,6 @@ pipeline {
             post{
                 success{
                     slackSend color: 'good', message: "[Grupo3][Pipeline IC][Rama: ${env.GIT_BRANCH}][${BUILD_TAG}][Resultado: Ok]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
-
-                    [Grupo2][Pipeline IC][Rama: develop][Stage: build][Resultado: Ok]
                 }
                 failure{
                     slackSend color: 'danger', message: "[Grupo3][Pipeline IC][Rama: ${env.GIT_BRANCH}][${BUILD_TAG}][Ejecucion fallida en stage][${env.TAREA}]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
