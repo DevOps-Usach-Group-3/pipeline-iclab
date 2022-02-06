@@ -27,7 +27,6 @@ def call(){
         }
     }
 
-     return this;
 
     stage("Paso 3: Curl Springboot con Gradle durmiendo 20 segundos"){
         sh "gradle bootRun&"
