@@ -5,8 +5,7 @@
 */
 def call(){
     stage("Paso 0: Definiendo el ambiente"){
-        def ambiente = ${env.GIT_BRANCH}
-        if(ambiente == "origin/feature-ellery"){
+        if(env.GIT_BRANCH == "origin/feature-ellery"){
             sh 'echo "Se esta compilando el feature de Ellery"'
         }else{
             sh 'echo "otro branch"'
@@ -15,7 +14,7 @@ def call(){
 
     stage("Paso 1: Build && Test"){
         echo "${env.GIT_BRANCH}"
-        sh 'echo $GIT_BRANCH'
+        //sh 'echo $GIT_BRANCH'
         sh "gradle clean build"
     }
 
