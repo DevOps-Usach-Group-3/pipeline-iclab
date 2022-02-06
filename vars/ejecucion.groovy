@@ -21,7 +21,7 @@ pipeline {
             name:'compileTool',
             choices: ['Maven', 'Gradle'],
             description: 'Seleccione herramienta de compilacion'
-        )
+        )  
     }*/  
     stages {
         stage("Pipeline"){
