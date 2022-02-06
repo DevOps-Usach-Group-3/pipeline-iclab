@@ -42,10 +42,12 @@ pipeline {
             }
             post{
                 success{
-                    slackSend color: 'good', message: "[Su Nombre] [${JOB_NAME}] [${BUILD_TAG}] Ejecucion Exitosa", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
+                    slackSend color: 'good', message: "[Grupo3][Pipeline IC][Rama: ${env.GIT_BRANCH}][${BUILD_TAG}][Resultado: Ok]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
+
+                    [Grupo2][Pipeline IC][Rama: develop][Stage: build][Resultado: Ok]
                 }
                 failure{
-                    slackSend color: 'danger', message: "[Su Nombre] [${env.JOB_NAME}] [${BUILD_TAG}] Ejecucion fallida en stage [${env.TAREA}]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
+                    slackSend color: 'danger', message: "[Grupo3][Pipeline IC][Rama: ${env.GIT_BRANCH}][${BUILD_TAG}][Ejecucion fallida en stage][${env.TAREA}]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-token'
                 }
             }
         }

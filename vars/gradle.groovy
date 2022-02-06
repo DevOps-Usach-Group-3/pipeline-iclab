@@ -28,10 +28,11 @@ def call(){
     }
 
 
-    stage("Paso 3: Curl Springboot con Gradle durmiendo 20 segundos"){
+    stage("Paso 3: Curl Springboot con Gradle durmiendo 60 segundos"){
         sh "gradle bootRun&"
-        sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
+        sh "sleep 60 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
     }
+    
     stage("Paso 4: Subir Nexus"){
         nexusPublisher nexusInstanceId: 'nexus',
         nexusRepositoryId: 'pipeline-iclab-prueba',
