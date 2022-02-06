@@ -45,7 +45,7 @@ def stageSonar(){
     stage("Paso 2: Sonar - Análisis Estático"){
         sh "echo 'Análisis Estático!'"
         withSonarQubeEnv('sonarqube') {
-            sh './gradlew sonarqube -Dsonar.projectKey=pipeline-iclab-prueba -Dsonar.java.binaries=build'
+            sh './gradlew sonarqube -Dsonar.projectKey=pipeline-iclab-prueba2 -Dsonar.java.binaries=build'
         }
     }
 */
@@ -63,7 +63,7 @@ def stageRunSpringCurl(){
 /*
     stage("Paso 3: Curl Springboot con Gradle durmiendo 20 segundos"){
         sh "gradle bootRun&"
-        sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
+        sh "sleep 60 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
     }
 */
 
@@ -151,6 +151,11 @@ def stageCurlJar(){
         env.STAGE = "curl_jar - ${DESCRTIPTION_STAGE}"
         sh "echo  ${env.STAGE}"
         sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
+    }
+    stage("Paso 8: Generando la rama Release"){
+        if(env.GIT_BRANCH == "origin/develop"){
+            sh 'echo "Crear release"'
+        }
     }
 }
 
