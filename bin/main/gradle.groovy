@@ -12,9 +12,10 @@ def call(){
         figlet "Integración Continua"
         stagesCI()
     }
-    if (rama.indexOf('release') > 0)
+    if (rama.indexOf('release') > 0) {
         figlet "Despliegue Continuo"
         stagesCD()
+    }
 }
 
 def stageCleanBuildTest(){
