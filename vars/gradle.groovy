@@ -32,7 +32,7 @@ def call(){
         sh "gradle bootRun&"
         sh "sleep 60 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
     }
-    
+
     stage("Paso 4: Subir Nexus"){
         nexusPublisher nexusInstanceId: 'nexus',
         nexusRepositoryId: 'pipeline-iclab-prueba',
@@ -61,6 +61,11 @@ def call(){
     }
     stage("Paso 7: Testear Artefacto durmiendo 20 segundos"){
         sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
+    }
+    stage("Paso 8: Generando la rama Release"){
+        if(env.GIT_BRANCH == "origin/develop"){
+            sh 'echo "Crear release"'
+        }
     }
 }
 return this;
