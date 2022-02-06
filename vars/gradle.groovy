@@ -5,6 +5,8 @@
 */
 def call(){
 
+    env.RELEASETAG = "0.0.3"
+
     echo 'El pipeline se ejecutará segun la rama ' + env.GIT_BRANCH
     String rama = env.GIT_BRANCH
     if (rama.indexOf("develop") > 0 || rama.indexOf("feature") > 0) {
@@ -116,7 +118,7 @@ def stageUploadNexus(){
 */
 
 def stageDownloadNexus(){
-    env.DESCRIPTION_STAGE = "Paso 5: Descargar Nexus"
+    env.DESCRIPTION_STAGE = "Paso 6: Descargar Nexus"
    stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "download_nexus - ${DESCRIPTION_STAGE}"
         sh "echo  ${env.STAGE}"
@@ -132,7 +134,7 @@ def stageDownloadNexus(){
 */
 
 def stageRunJar(){
-    env.DESCRIPTION_STAGE = "Paso 6: Levantar Artefacto Jar"
+    env.DESCRIPTION_STAGE = "Paso 7: Levantar Artefacto Jar"
     stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "run_jar - ${DESCRIPTION_STAGE}"
         sh "echo  ${env.STAGE}"
@@ -146,7 +148,7 @@ def stageRunJar(){
 */
 
 def stageCurlJar(){
-    env.DESCRIPTION_STAGE = "Paso 7: Testear Artefacto durmiendo 20 segundos"
+    env.DESCRIPTION_STAGE = "Paso 8: Testear Artefacto durmiendo 20 segundos"
     stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "curl_jar - ${DESCRIPTION_STAGE}"
         sh "echo  ${env.STAGE}"
@@ -159,14 +161,14 @@ def stageCurlJar(){
         sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
     } */
 
-//  Stage 9
+//  Stage 5
 
 def stageGitCreateRelease() {
-    env.DESCRIPTION_STAGE = "Paso 8: Generando la rama Release"
+    env.DESCRIPTION_STAGE = "Paso 5: Generando la rama Release"
     stage("${env.DESCRIPTION_STAGE}"){
         if(env.GIT_BRANCH == "origin/develop"){
             sh 'echo "Crear release"'
-            sh "git checkout -b release-v0.0.1"
+            sh "git checkout -b release-v${env.RELEASETAG}"
         }
     }
 }
@@ -176,7 +178,7 @@ def stageMergeMaster() {
     stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "gitMergeMaster - ${DESCRIPTION_STAGE}"
         sh "echo ${env.STAGE}"
-        sh "git checkout main && git merge release-v0.0.1"
+        sh "git checkout main && git merge release-v${env.RELEASETAG}"
     }
 }
 
@@ -196,7 +198,7 @@ def stageGitTag(){
     stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "gitTagRelease - ${DESCRIPTION_STAGE}"
         sh "echo ${env.STAGE}"
-        sh "git tag -a v0.0.1"
+        sh "git tag -a v${env.RELEASETAG}"
     }
 }
 
