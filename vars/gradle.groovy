@@ -5,7 +5,7 @@
 */
 def call(){
 
-    env.VERSION_RELEASE = ${project.version}
+    env.VERSION_RELEASE = "${project.version}"
 
     echo 'El pipeline se ejecutará segun la rama ' + env.GIT_BRANCH
     String rama = env.GIT_BRANCH
