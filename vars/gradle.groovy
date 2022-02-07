@@ -172,6 +172,7 @@ def stageGitCreateRelease() {
             sh 'echo "Crear release"'
           //  sh 'git clone git@github.com:DevOps-Usach-Group-3/ms-iclab.git'
             sh "git checkout -b release-v${env.RELEASETAG}"
+            sh "git remote set-url origin git@github.com:DevOps-Usach-Group-3/ms-iclab.git"
             sh "git push origin release-v${env.RELEASETAG}"
         }
     }
