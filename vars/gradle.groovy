@@ -170,8 +170,9 @@ def stageGitCreateRelease() {
     stage("${env.DESCRIPTION_STAGE}"){
         if(env.GIT_BRANCH == "origin/develop"){
             sh 'echo "Crear release"'
-            sh 'git clone git@github.com:DevOps-Usach-Group-3/ms-iclab.git'
+          //  sh 'git clone git@github.com:DevOps-Usach-Group-3/ms-iclab.git'
             sh "git checkout -b release-v${env.RELEASETAG}"
+            sh "git push origin release-v${env.RELEASETAG}"
         }
     }
 }
