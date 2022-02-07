@@ -96,6 +96,33 @@ def stageUploadNexus(){
     }
 }
 
+def stageUploadNexusReleases(){
+    env.DESCRIPTION_STAGE = "Paso 4: Subir Nexus"
+    stage("${env.DESCRIPTION_STAGE}"){
+        nexusPublisher nexusInstanceId: 'nexus',
+        nexusRepositoryId: 'pipeline-iclab-prueba-releases',
+        packages: [
+            [$class: 'MavenPackage',
+                mavenAssetList: [
+                    [classifier: '',
+                    extension: 'jar',
+                    filePath: 'build/libs/IClabPrueba-0.0.1.jar'
+                ]
+            ],
+                mavenCoordinate: [
+                    artifactId: 'IClabPrueba',
+                    groupId: 'com.devopsusach2020',
+                    packaging: 'jar',
+                    version: '0.0.1'
+                ]
+            ]
+        ]
+        env.STAGE = "upload_nexus - ${DESCRIPTION_STAGE}"
+        sh "echo  ${env.STAGE}"
+    }
+}
+
+
 /*    stage("Paso 4: Subir Nexus"){
         nexusPublisher nexusInstanceId: 'nexus',
         nexusRepositoryId: 'pipeline-iclab-prueba',
@@ -218,7 +245,7 @@ def stagesCI(){
 def stagesCD(){
     stageDownloadNexus()
     stageRunJar()
-    stageUploadNexus()
+    stageUploadNexusReleases()
     stageMergeMaster()
     stageMergeDevelop()
     stageGitTag()
