@@ -201,7 +201,7 @@ def stageGitTag(){
     stage("${env.DESCRIPTION_STAGE}"){
         env.STAGE = "gitTagRelease - ${DESCRIPTION_STAGE}"
         sh "echo ${env.STAGE}"
-        sh "git tag -a v${env.RELEASETAG}"
+        sh "git tag v${env.RELEASETAG}"
     }
 }
 
